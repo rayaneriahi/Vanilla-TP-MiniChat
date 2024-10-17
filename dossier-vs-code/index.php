@@ -22,6 +22,14 @@
             <p class="text-2xl font-bold absolute bottom-0 left-0 ml-14 mb-14">Sending box / nickname</p>
             <p class="text-blue-600 absolute bottom-0 right-0 mr-14 mb-14">Je suis en train d'écrire...</p>
     </div>
+    <label for="sendingBox">Sending box</label>
+    <form action="request.php" method="post" name="sendingBox">
+        <input type="text" name="nickname" placeholder="nickname">
+        <input type="text" name="messageText" placeholder="message">
+        <input type="hidden" name="publicationDate">
+        <input type="hidden" name="ip" value="<?php echo $_SERVER['REMOTE_ADDR'];?>">
+        <button type="submit">Send</button>
+    </form>
 
 </body>
 </html>
