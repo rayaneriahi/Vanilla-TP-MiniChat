@@ -1,10 +1,19 @@
 <?php
 
+require_once("color.php");
+
 try {
     $mysql = new PDO("mysql:host=localhost;dbname=minichat","root","");
 } catch (PDOException $e) {
     die("erreur");
 }
+
+setcookie (
+    "nickname",
+    $_POST["nickname"],
+    time()+60*60*24*30,
+    "/"
+);
 
 if (!empty($_POST)) {
     echo "ip = " . $_POST["ip"] . "<br>nickname = " . $_POST["nickname"] . "<br>message_text = " . $_POST["messageText"] . "<br>publication_date = " . date("d-m-Y G:i:s") . "<br>";
@@ -17,11 +26,12 @@ if (!empty($_POST)) {
     $user = $selectUser->fetch();
 
     if (empty($user)) {
-    $sqlRequest = "INSERT INTO users (ip, nickname) VALUES (:ip, :nickname)";
+    $sqlRequest = "INSERT INTO users (ip, nickname, color) VALUES (:ip, :nickname, :color)";
     $createUser = $mysql->prepare( $sqlRequest );
     $createUser->execute([
         "ip"=> $_POST["ip"],
         "nickname"=> $_POST["nickname"],
+        "color"=> RandomColor::one(),
     ]);
     };
 
