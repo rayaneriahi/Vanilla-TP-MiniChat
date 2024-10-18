@@ -16,10 +16,10 @@ try {
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="w-screen h-screen flex flex-row">
 
-    <div class=" border border-black h-full w-1/4 p-5">
-        <h1>Users</h1>
+<body class="h-screen w-screen flex flex-row bg-pink-50">
+    <div class="relative border-4 border-gray-600 w-1/4 h-full flex flex-col py-10 px-10">
+        <p class ="text-2xl font-bold absolute top-0 left-0">User</p>
         <?php    
 
         $sqlRequest = "SELECT * FROM users";
@@ -33,25 +33,24 @@ try {
 
         ?>
     </div>
-    <div class=" border border-black h-full w-3/4 flex flex-col">
-        <div class=" border border-black w-full h-4/5 flex flex-col-reverse p-5">
-            <div>
-                <?php    
+    
+    <div class="w-3/4 h-full flex flex-col">
+        <div class="relative border-4 border-gray-600 h-4/5 w-full">
+        <?php    
 
-                $sqlRequest = "SELECT * FROM messages INNER JOIN users ON messages.user_id = users.id";
-                $selectMessages = $mysql->prepare( $sqlRequest );
-                $selectMessages->execute();
-                $messages = $selectMessages->fetchall();
+        $sqlRequest = "SELECT * FROM messages INNER JOIN users ON messages.user_id = users.id";
+        $selectMessages = $mysql->prepare( $sqlRequest );
+        $selectMessages->execute();
+        $messages = $selectMessages->fetchall();
 
-                foreach ( $messages as $message ) {
-                    echo "<p>" . $message["publication_date"] . " " . $message["nickname"] . " : " . $message["message_text"] . "<p>";
-                };
+        foreach ( $messages as $message ) {
+            echo "<p>" . $message["publication_date"] . " " . $message["nickname"] . " : " . $message["message_text"] . "<p>";
+        };
 
-                ?>
-            </div>
+        ?>
         </div>
-        <div class=" border border-black w-full h-1/5 p-5">
-            <label for="sendingBox">Sending box</label>
+        <div class="relative border-4 border-gray-600 h-1/5 w-full">
+        <label for="sendingBox">Sending box</label>
             <form action="request.php" method="post" name="sendingBox">
                 <input class=" border border-black rounded-xl px-2" type="text" name="nickname" placeholder="nickname" required>
                 <input class=" border border-black rounded-xl px-2" type="text" name="messageText" placeholder="message" required>
@@ -60,7 +59,6 @@ try {
                 <button class=" border border-black rounded-xl px-2" type="submit">Send</button>
             </form>
         </div>
-    </div>
 
 </body>
 </html>
